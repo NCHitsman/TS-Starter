@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-import { RootState, useAppDispatch } from '../../store/index'
+import { RootState, useAppDispatch } from "../../store/index";
 import { User } from "../../CustomTypings";
 
-const SignupForm = (user: {user: User | null}) => {
+const SignupForm = ({ user }: { user: User | null }) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -13,25 +13,32 @@ const SignupForm = (user: {user: User | null}) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([] as string[]);
 
-  if (user) return <Redirect to="/" />;
+  if (user) {
+    return <Redirect to="/" />;
+  }
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password }))
-        .catch(async (res: any) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        });
+      return dispatch(
+        sessionActions.signup({ email, username, password })
+      ).catch(async (res: any) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
     }
-    return setErrors(['Confirm Password field must be the same as the Password field']);
+    return setErrors([
+      "Confirm Password field must be the same as the Password field",
+    ]);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        {errors.map((error, idx) => (
+          <li key={idx}>{error}</li>
+        ))}
       </ul>
       <label>
         Email
@@ -72,6 +79,8 @@ const SignupForm = (user: {user: User | null}) => {
       <button type="submit">Sign Up</button>
     </form>
   );
-}
+};
 
-export default connect((state: RootState) => ({user: state.session.user}))(SignupForm);
+export default connect((state: RootState) => ({ user: state.session.user }))(
+  SignupForm
+);

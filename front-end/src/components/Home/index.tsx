@@ -1,13 +1,13 @@
 import SignupForm from "../SignupForm";
 import LoginForm from "../LoginForm";
+import './Home.css'
 
 const Home = () => {
   return (
-    <>
-      <div>HOME</div>
+    <div className='HomeFormsCont'>
       <LoginForm />
       <SignupForm />
-    </>
+    </div>
   );
 };
 

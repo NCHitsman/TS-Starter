@@ -5,13 +5,15 @@ import { Redirect } from "react-router-dom";
 import { RootState, useAppDispatch } from "../../store/index";
 import { User } from "../../CustomTypings";
 
-const LoginForm = (user: {user: User  | null}) => {
+const LoginForm = ({ user }: { user: User | null }) => {
   const dispatch = useAppDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (user) return <Redirect to="/" />;
+  if (user) {
+    return <Redirect to="/" />;
+  }
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -52,7 +54,7 @@ const LoginForm = (user: {user: User  | null}) => {
       <button type="submit">Log In</button>
     </form>
   );
-}
+};
 
 export default connect((state: RootState) => ({ user: state.session.user }))(
   LoginForm

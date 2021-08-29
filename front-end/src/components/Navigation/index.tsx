@@ -1,29 +1,27 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
-import './Navigation.css';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { connect, useSelector } from "react-redux";
+import ProfileButton from "./ProfileButton";
+import "./Navigation.css";
+import { RootState } from "../../store";
+import { User } from "../../CustomTypings";
 
 interface Props {
-    isLoaded: boolean;
-  }
-
-function Navigation({ isLoaded }: Props){
-  const sessionUser: any = useSelector((state: any) => state.session.user);
-
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = (
-      <ProfileButton user={sessionUser} />
-    );
-  }
-
-  return (
-    <div className='nav__cont'>
-        <NavLink exact to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
-    </div>
-  );
+  isLoaded: boolean;
+  user: User | null;
 }
 
-export default Navigation;
+const Navigation = ({ isLoaded, user }: Props) => {
+  return (
+    <div className="NavCont">
+      <NavLink exact to="/">
+        Home
+      </NavLink>
+      {isLoaded && user && <ProfileButton user={user} />}
+    </div>
+  );
+};
+
+export default connect((state: RootState) => ({ user: state.session.user }))(
+  Navigation
+);
