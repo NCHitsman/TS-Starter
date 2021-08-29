@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-import { useAppDispatch } from '../../store/index'
+import { RootState, useAppDispatch } from '../../store/index'
+import { User } from "../../CustomTypings";
 
-const SignupForm = () => {
+const SignupForm = (user: User) => {
   const dispatch = useAppDispatch();
-  const sessionUser = useSelector((state: any) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([] as string[]);
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (user) return <Redirect to="/" />;
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -74,4 +74,4 @@ const SignupForm = () => {
   );
 }
 
-export default connect()(SignupForm);
+export default connect((state: RootState) => ({user: state.session.user}))(SignupForm);
