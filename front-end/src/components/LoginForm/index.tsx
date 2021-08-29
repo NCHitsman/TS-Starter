@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { RootState, useAppDispatch } from "../../store/index";
 import { User } from "../../CustomTypings";
+import "./LoginForm.css";
 
 const LoginForm = ({ user }: { user: User | null }) => {
   const dispatch = useAppDispatch();
@@ -27,12 +28,14 @@ const LoginForm = ({ user }: { user: User | null }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => (
-          <li key={idx}>{error}</li>
-        ))}
-      </ul>
+    <form className="LoginFormCont" onSubmit={handleSubmit}>
+      {errors.length ? (
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx}>{error}</li>
+          ))}
+        </ul>
+      ) : null}
       <label>
         Username or Email
         <input

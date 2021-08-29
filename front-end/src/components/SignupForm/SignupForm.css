@@ -1,0 +1,9 @@
+.SignupFormCont{
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 2vh;
+}

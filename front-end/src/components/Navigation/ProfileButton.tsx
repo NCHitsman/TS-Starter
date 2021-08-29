@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { User } from "../../CustomTypings";
 import * as sessionActions from "../../store/session";
@@ -14,13 +14,10 @@ const ProfileButton = ({ user }: Props) => {
 
   useEffect(() => {
     if (!showMenu) return;
-
     const closeMenu = () => {
       setShowMenu(false);
     };
-
     document.addEventListener("click", closeMenu);
-
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
@@ -28,7 +25,6 @@ const ProfileButton = ({ user }: Props) => {
     <>
       <button onClick={() => setShowMenu(!showMenu)}>
         User Menu
-        <i className="fas fa-user-circle" />
       </button>
       {showMenu && user && (
         <ul className="ProfileDropdown">
