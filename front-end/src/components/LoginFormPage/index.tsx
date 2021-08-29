@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { useAppDispatch } from '../../store/index'
+import React, { useState } from "react";
+import * as sessionActions from "../../store/session";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { RootState, useAppDispatch } from "../../store/index";
+import { User } from "../../CustomTypings";
 
-function LoginFormPage() {
+const LoginForm = (user: User) => {
   const dispatch = useAppDispatch();
-  const sessionUser = useSelector((state: any) => state.session.user);
-  const [credential, setCredential] = useState('');
-  const [password, setPassword] = useState('');
+  const [credential, setCredential] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return (
-    <Redirect to="/" />
-  );
+  if (user) return <Redirect to="/" />;
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(sessionActions.login({ credential, password }))
-      .catch(async (res: any) => {
+    return dispatch(sessionActions.login({ credential, password })).catch(
+      async (res: any) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
-      });
-  }
+      }
+    );
+  };
 
   return (
     <form onSubmit={handleSubmit}>
       <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        {errors.map((error, idx) => (
+          <li key={idx}>{error}</li>
+        ))}
       </ul>
       <label>
         Username or Email
@@ -53,4 +54,6 @@ function LoginFormPage() {
   );
 }
 
-export default LoginFormPage;
+export default connect((state: RootState) => ({ user: state.session.user }))(
+  LoginForm
+);
