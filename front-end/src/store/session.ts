@@ -1,9 +1,10 @@
+import { User } from '../CustomTypings';
 import { csrfFetch } from './csrf';
 
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 
-const setUser = (user: any) => {
+const setUser = (user: User) => {
   return {
     type: SET_USER,
     payload: user,
@@ -16,8 +17,8 @@ const removeUser = () => {
   };
 };
 
-export const login = (user: any) => async (dispatch: any) => {
-  const { credential, password } = user;
+export const login = (loginData: {credential: string, password: string}) => async (dispatch: any) => {
+  const { credential, password } = loginData;
   const response = await csrfFetch('/api/session', {
     method: 'POST',
     body: JSON.stringify({
