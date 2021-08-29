@@ -38,7 +38,7 @@ export const restoreUser = () => async (dispatch: any) => {
   return response;
 };
 
-export const signup = (user: any) => async (dispatch: any) => {
+export const signup = (user: { username: string, email: string, password: string}) => async (dispatch: any) => {
   const { username, email, password } = user;
   const response = await csrfFetch("/api/users", {
     method: "POST",
@@ -67,11 +67,11 @@ const sessionReducer = (state = initialState, action: any) => {
   let newState;
   switch (action.type) {
     case SET_USER:
-      newState = Object.assign({}, state);
+      newState = {...state};
       newState.user = action.payload;
       return newState;
     case REMOVE_USER:
-      newState = Object.assign({}, state);
+      newState = {...state};
       newState.user = null;
       return newState;
     default:

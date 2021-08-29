@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { useAppDispatch } from '../../store/index'
 
-function SignupFormPage() {
+const SignupForm = () => {
   const dispatch = useAppDispatch();
   const sessionUser = useSelector((state: any) => state.session.user);
   const [email, setEmail] = useState("");
@@ -74,4 +74,4 @@ function SignupFormPage() {
   );
 }
 
-export default SignupFormPage;
+export default connect()(SignupForm);
