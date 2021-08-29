@@ -1,6 +1,13 @@
-export default function Home() {
+import SignupForm from "../SignupForm";
+import LoginForm from "../LoginForm";
 
-    return (
-        <div>Home</div>
-    )
-}
+const Home = () => {
+  return (
+    <>
+      <LoginForm />
+      <SignupForm />
+    </>
+  );
+};
+
+export default Home;

@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import { RootState, useAppDispatch } from "../../store/index";
 import { User } from "../../CustomTypings";
 
-const LoginForm = (user: User) => {
+const LoginForm = (user: {user: User  | null}) => {
   const dispatch = useAppDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");

@@ -5,7 +5,7 @@ import * as sessionActions from "../../store/session";
 import { RootState, useAppDispatch } from '../../store/index'
 import { User } from "../../CustomTypings";
 
-const SignupForm = (user: User) => {
+const SignupForm = (user: {user: User | null}) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
