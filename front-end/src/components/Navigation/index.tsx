@@ -16,6 +16,12 @@ const Navigation = ({ isLoaded, user }: Props) => {
       <NavLink exact to="/">
         Home
       </NavLink>
+      <NavLink exact to="/login">
+        Log In
+      </NavLink>
+      <NavLink exact to="/signup">
+        Sign Up
+      </NavLink>
       {isLoaded && user && <ProfileButton user={user} />}
     </div>
   );
