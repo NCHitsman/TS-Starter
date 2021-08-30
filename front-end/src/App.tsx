@@ -4,6 +4,8 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Home from './components/Home'
 import { useAppDispatch } from './store/index'
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -20,6 +22,12 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Home/>
+          </Route>
+          <Route exact path='/login'>
+            <LoginForm/>
+          </Route>
+          <Route exact path='/signup'>
+            <SignupForm/>
           </Route>
         </Switch>
       )}
